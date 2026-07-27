@@ -1,0 +1,161 @@
+@import "tailwindcss";
+
+:root {
+  /* Neutral base */
+  --color-void: #030509;
+  --color-navy-950: #060a16;
+  --color-navy-900: #0a0f22;
+  --color-navy-850: #0d132a;
+  --color-navy-800: #0f1830;
+  --color-navy-700: #16214a;
+  --color-navy-600: #1d2b5c;
+  --color-navy-500: #29397a;
+
+  --color-ink-50: #fafbfc;
+  --color-ink-100: #f1f3f7;
+  --color-ink-200: #e3e7f0;
+  --color-ink-300: #ccd2e0;
+  --color-ink-400: #9aa3b8;
+  --color-ink-500: #6b7690;
+  --color-ink-600: #4a536b;
+  --color-ink-700: #333b52;
+  --color-ink-800: #1c2338;
+  --color-ink-900: #0b0e1a;
+
+  /* Brand accents, drawn from the Fortivex mark */
+  --color-electric: #0ea5ff;
+  --color-electric-soft: #5cc9ff;
+  --color-royal: #2f5dff;
+  --color-violet: #7c4dff;
+  --color-violet-deep: #5a1fd6;
+
+  --gradient-brand: linear-gradient(
+    120deg,
+    var(--color-electric) 0%,
+    var(--color-royal) 48%,
+    var(--color-violet) 100%
+  );
+  --gradient-brand-soft: linear-gradient(
+    120deg,
+    rgba(14, 165, 255, 0.16) 0%,
+    rgba(47, 93, 255, 0.14) 48%,
+    rgba(124, 77, 255, 0.16) 100%
+  );
+
+  --background: var(--color-ink-50);
+  --foreground: var(--color-ink-900);
+
+  --ease-premium: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@theme inline {
+  --color-void: var(--color-void);
+  --color-navy-950: var(--color-navy-950);
+  --color-navy-900: var(--color-navy-900);
+  --color-navy-850: var(--color-navy-850);
+  --color-navy-800: var(--color-navy-800);
+  --color-navy-700: var(--color-navy-700);
+  --color-navy-600: var(--color-navy-600);
+  --color-navy-500: var(--color-navy-500);
+
+  --color-ink-50: var(--color-ink-50);
+  --color-ink-100: var(--color-ink-100);
+  --color-ink-200: var(--color-ink-200);
+  --color-ink-300: var(--color-ink-300);
+  --color-ink-400: var(--color-ink-400);
+  --color-ink-500: var(--color-ink-500);
+  --color-ink-600: var(--color-ink-600);
+  --color-ink-700: var(--color-ink-700);
+  --color-ink-800: var(--color-ink-800);
+  --color-ink-900: var(--color-ink-900);
+
+  --color-electric: var(--color-electric);
+  --color-electric-soft: var(--color-electric-soft);
+  --color-royal: var(--color-royal);
+  --color-violet: var(--color-violet);
+  --color-violet-deep: var(--color-violet-deep);
+
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+
+  --container-page: 1440px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans), "Inter", ui-sans-serif, system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+::selection {
+  background: var(--color-violet);
+  color: var(--color-ink-50);
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-navy-950);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-navy-600);
+  border-radius: 999px;
+  border: 2px solid var(--color-navy-950);
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-royal);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Utility layer additions */
+@layer utilities {
+  .text-gradient-brand {
+    background: var(--gradient-brand);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  .bg-grain {
+    position: relative;
+  }
+  .bg-grain::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.035;
+    mix-blend-mode: overlay;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  .border-hairline {
+    border-color: color-mix(in srgb, var(--color-ink-400) 16%, transparent);
+  }
+}
