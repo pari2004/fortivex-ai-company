@@ -42,19 +42,19 @@ export function PremiumNavbar() {
       className={cn(
         "fixed inset-x-0 top-0 z-50 transition-all duration-500",
         scrolled || open
-          ? "border-b border-white/[0.06] bg-navy-950/75 backdrop-blur-xl"
-          : "border-b border-transparent bg-transparent"
+          ? "border-b border-white/[0.08] bg-[#05070D]/90 backdrop-blur-2xl shadow-[0_4px_30px_rgba(0,0,0,0.5)]"
+          : "border-b border-white/[0.05] bg-[#05070D]/60 backdrop-blur-xl"
       )}
     >
-      <Container className="flex h-[76px] items-center justify-between">
+      <Container className="flex h-[64px] items-center justify-between">
         <Logo tone="dark" />
 
-        <nav className="hidden items-center gap-9 lg:flex">
+        <nav className="hidden items-center gap-1 rounded-full border border-white/10 bg-white/[0.03] p-1 backdrop-blur-xl lg:flex">
           {NAV_ITEMS.map((item) => (
             <a
               key={item.href}
               href={item.href}
-              className="text-[12.5px] font-medium uppercase tracking-[0.14em] text-ink-300 transition-colors duration-300 hover:text-white"
+              className="rounded-full px-3.5 py-1 text-[11px] font-semibold uppercase tracking-[0.14em] text-slate-300 transition-all duration-300 hover:bg-white/10 hover:text-white"
             >
               {item.label}
             </a>
@@ -71,7 +71,7 @@ export function PremiumNavbar() {
           type="button"
           aria-label={open ? "Close menu" : "Open menu"}
           onClick={() => setOpen((v) => !v)}
-          className="flex h-10 w-10 items-center justify-center text-ink-50 lg:hidden"
+          className="flex h-10 w-10 items-center justify-center text-white lg:hidden"
         >
           {open ? <X size={22} /> : <Menu size={22} />}
         </button>
@@ -84,7 +84,7 @@ export function PremiumNavbar() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.3 }}
-            className="fixed inset-0 top-[76px] z-40 flex flex-col justify-between bg-navy-950 px-6 pb-10 pt-8 lg:hidden"
+            className="fixed inset-0 top-[64px] z-40 flex flex-col justify-between bg-[#05070D] px-6 pb-10 pt-8 lg:hidden"
           >
             <nav className="flex flex-col gap-1">
               {NAV_ITEMS.map((item, i) => (
@@ -95,7 +95,7 @@ export function PremiumNavbar() {
                   initial={{ opacity: 0, y: 16 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.05 * i, duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-                  className="border-b border-white/[0.06] py-5 text-2xl font-semibold tracking-tight text-ink-50"
+                  className="border-b border-white/[0.08] py-5 text-2xl font-semibold tracking-tight text-white"
                 >
                   {item.label}
                 </motion.a>

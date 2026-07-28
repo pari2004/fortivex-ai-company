@@ -46,19 +46,15 @@ export function MagneticButton({
   }
 
   const base =
-    "relative inline-flex items-center justify-center gap-2 rounded-full px-7 py-3.5 text-[13px] font-semibold uppercase tracking-[0.14em] transition-colors duration-300 whitespace-nowrap";
+    "relative inline-flex items-center justify-center gap-2 rounded-full px-6 py-2.5 text-[12px] font-semibold uppercase tracking-[0.14em] transition-all duration-300 whitespace-nowrap cursor-pointer select-none";
 
   const variants: Record<string, string> = {
     primary:
-      "bg-[image:var(--gradient-brand)] text-white shadow-[0_8px_30px_-8px_rgba(124,77,255,0.55)] hover:shadow-[0_10px_40px_-6px_rgba(124,77,255,0.7)]",
+      "bg-gradient-to-r from-[#2563EB] via-[#3B82F6] to-[#7C3AED] text-white hover:opacity-95 shadow-[0_4px_24px_rgba(37,99,235,0.4)] hover:shadow-[0_6px_32px_rgba(37,99,235,0.6)] active:scale-[0.98]",
     outline:
-      tone === "dark"
-        ? "border border-ink-400/30 text-ink-50 hover:border-ink-50/60"
-        : "border border-ink-900/20 text-ink-900 hover:border-ink-900/50",
+      "border border-white/15 bg-white/[0.04] text-white hover:border-white/30 hover:bg-white/[0.08] active:scale-[0.98] backdrop-blur-xl shadow-xs",
     ghost:
-      tone === "dark"
-        ? "text-ink-50/90 hover:text-white"
-        : "text-ink-800 hover:text-ink-900",
+      "text-slate-300 hover:text-white hover:bg-white/5 active:scale-[0.98]",
   };
 
   const content = (

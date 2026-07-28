@@ -6,7 +6,7 @@ export function SectionLabel({
   tone = "dark",
   className,
 }: {
-  index: string;
+  index?: string;
   label: string;
   tone?: "dark" | "light";
   className?: string;
@@ -14,14 +14,14 @@ export function SectionLabel({
   return (
     <div
       className={cn(
-        "flex items-center gap-3 font-mono text-[11px] uppercase tracking-[0.28em]",
-        tone === "dark" ? "text-ink-400" : "text-ink-500",
+        "inline-flex items-center gap-2.5 rounded-full border border-white/10 bg-white/[0.04] px-4 py-1.5 font-mono text-[11px] uppercase tracking-[0.2em] text-[#F8FAFC] backdrop-blur-xl shadow-xs",
+        tone === "light" && "border-slate-900/[0.08] bg-slate-900/[0.03] text-slate-800",
         className
       )}
     >
-      <span className="text-gradient-brand font-semibold">{index}</span>
-      <span className="h-px w-8 bg-current opacity-40" />
-      <span>{label}</span>
+      <span className="h-1.5 w-1.5 rounded-full bg-[#2563EB] shadow-[0_0_10px_#2563EB]" />
+      {index && <span className="text-slate-400 font-semibold">{index} //</span>}
+      <span className="font-semibold">{label}</span>
     </div>
   );
 }

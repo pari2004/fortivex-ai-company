@@ -1,11 +1,11 @@
 "use client";
 
+import { motion } from "framer-motion";
 import { Cpu, Database, Network, Sparkles } from "lucide-react";
 import { Container } from "@/components/ui/Container";
 import { SectionLabel } from "@/components/ui/SectionLabel";
 import { Reveal, RevealGroup, revealItem } from "@/components/animations/Reveal";
 import { TextReveal } from "@/components/animations/TextReveal";
-import { motion } from "framer-motion";
 
 const CATEGORIES = [
   {
@@ -34,42 +34,63 @@ export function TechnologySystem() {
   return (
     <section
       id="technology"
-      className="relative overflow-hidden bg-navy-900 bg-grain py-28 lg:py-36"
+      className="relative overflow-hidden bg-[#0B1220] py-32 lg:py-40 border-t border-white/[0.08] bg-grain"
     >
-      <Container>
-        <Reveal>
-          <SectionLabel index="06" label="Technology" tone="dark" />
-        </Reveal>
-        <h2 className="mt-8 max-w-2xl text-[9vw] font-semibold leading-[1.03] tracking-[-0.025em] text-ink-50 sm:text-[46px] md:text-[54px]">
-          <TextReveal lines={["The technology is only", "as powerful as the outcome."]} />
-        </h2>
+      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_30%_50%,_rgba(37,99,235,0.1),_transparent_70%)]" />
 
-        <RevealGroup className="mt-16 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-          {CATEGORIES.map((cat) => {
+      <Container className="relative z-10">
+        <div className="flex flex-col gap-4">
+          <Reveal>
+            <div className="inline-flex items-center gap-3 rounded-full border border-blue-500/20 bg-blue-500/10 px-4 py-1.5 font-mono text-[14px] uppercase tracking-[0.25em] text-[#3B82F6] font-semibold shadow-xs backdrop-blur-xl">
+              <span className="h-2 w-2 rounded-full bg-[#3B82F6] shadow-[0_0_10px_#3B82F6]" />
+              TECHNOLOGY ARCHITECTURE
+            </div>
+          </Reveal>
+
+          <h2 className="mt-6 max-w-4xl text-[44px] font-extrabold leading-[1.08] tracking-[-0.038em] text-[#F8FAFC] sm:text-[60px] lg:text-[72px]">
+            The technology is only as powerful as{" "}
+            <span className="bg-gradient-to-r from-[#3B82F6] via-[#2563EB] to-[#7C3AED] bg-clip-text text-transparent">
+              the outcome
+            </span>
+            .
+          </h2>
+        </div>
+
+        <RevealGroup className="mt-20 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+          {CATEGORIES.map((cat, idx) => {
             const Icon = cat.icon;
             return (
               <motion.div
                 key={cat.label}
                 variants={revealItem}
-                className="rounded-2xl border border-white/[0.08] bg-white/[0.02]"
+                className="group relative flex flex-col justify-between overflow-hidden rounded-2xl border border-white/10 bg-[#121B2D]/90 p-7 backdrop-blur-xl transition-all duration-300 hover:border-blue-500/40 hover:bg-[#121B2D] shadow-md hover:shadow-2xl"
               >
-                <div className="flex items-center gap-3 border-b border-white/[0.08] px-5 py-4">
-                  <Icon size={16} strokeWidth={1.8} className="text-electric" />
-                  <span className="font-mono text-[11px] uppercase tracking-[0.16em] text-ink-300">
+                <div>
+                  <div className="flex items-center justify-between border-b border-white/10 pb-5">
+                    <div className="flex h-10 w-10 items-center justify-center rounded-xl border border-white/10 bg-blue-500/20 text-[#3B82F6] shadow-xs transition-colors group-hover:border-blue-500/40">
+                      <Icon size={18} strokeWidth={1.8} />
+                    </div>
+                    <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-[#94A3B8] font-semibold">
+                      0{idx + 1}
+                    </span>
+                  </div>
+
+                  <h3 className="mt-6 font-mono text-xs uppercase tracking-[0.18em] text-[#F8FAFC] font-bold">
                     {cat.label}
-                  </span>
+                  </h3>
+
+                  <ul className="mt-6 space-y-2.5">
+                    {cat.items.map((item) => (
+                      <li
+                        key={item}
+                        className="flex items-center gap-2.5 text-sm text-[#CBD5E1] transition-colors duration-200 group-hover:text-white"
+                      >
+                        <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-[#3B82F6]" />
+                        <span className="font-medium">{item}</span>
+                      </li>
+                    ))}
+                  </ul>
                 </div>
-                <ul className="px-5 py-4">
-                  {cat.items.map((item) => (
-                    <li
-                      key={item}
-                      className="flex items-center gap-2.5 border-b border-white/[0.04] py-2.5 text-sm text-ink-400 last:border-b-0"
-                    >
-                      <span className="h-1 w-1 shrink-0 rounded-full bg-ink-600" />
-                      {item}
-                    </li>
-                  ))}
-                </ul>
               </motion.div>
             );
           })}
