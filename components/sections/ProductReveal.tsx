@@ -54,6 +54,25 @@ const PRODUCTS: Product[] = [
     href: "https://www.medivexai.com/",
     cta: "Explore Medivex AI",
   },
+  {
+    flagship: "Fortivex Ecosystem — Flagship 03",
+    badge: "Academy Operations & Attendance Automation",
+    name: "Fortivex",
+    nameAccent: "FAMS",
+    description:
+      "Fortivex Attendance Management System — a real-time attendance and academy operations platform for tracking students and faculty, automating reporting, and streamlining daily academy workflows.",
+    areas: [
+      "Attendance Tracking",
+      "Academy Operations",
+      "Faculty Management",
+      "Student Records",
+      "Automated Reporting",
+      "Access Control",
+      "Analytics Dashboard",
+    ],
+    href: "https://fams.empowersacademy.com/",
+    cta: "Explore FAMS",
+  },
 ];
 
 export function ProductReveal() {
