@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { motion } from "framer-motion";
 import {
   FileSearch,
   Sparkles,
@@ -9,7 +10,9 @@ import {
   TrendingUp,
 } from "lucide-react";
 import { Container } from "@/components/ui/Container";
+import { SectionLabel } from "@/components/ui/SectionLabel";
 import { Reveal } from "@/components/animations/Reveal";
+import { TextReveal } from "@/components/animations/TextReveal";
 import { cn } from "@/lib/utils";
 
 const STAGES = [
@@ -41,22 +44,22 @@ export function AutomationFlow() {
   }, []);
 
   return (
-    <section className="relative overflow-hidden bg-white py-28 lg:py-36 border-t border-black/[0.04]">
+    <section className="relative overflow-hidden bg-[#0B1220] py-28 lg:py-36 border-t border-white/[0.08] bg-grain">
       <div className="pointer-events-none absolute inset-0">
-        <div className="absolute left-1/2 top-0 h-[500px] w-[900px] -translate-x-1/2 rounded-full bg-[#7C3AED]/[0.08] blur-[140px]" />
+        <div className="absolute left-1/2 top-0 h-[500px] w-[900px] -translate-x-1/2 rounded-full bg-blue-600/15 blur-[140px]" />
       </div>
 
       <Container className="relative z-10">
         <Reveal>
-          <div className="inline-flex items-center gap-3 rounded-full border border-[#7C3AED]/20 bg-[#7C3AED]/[0.06] px-4 py-1.5 font-mono text-[14px] uppercase tracking-[0.25em] text-[#7C3AED] font-semibold shadow-sm backdrop-blur-xl">
-            <span className="h-2 w-2 rounded-full bg-[#7C3AED] shadow-[0_0_10px_#7C3AED]" />
+          <div className="inline-flex items-center gap-3 rounded-full border border-blue-500/20 bg-blue-500/10 px-4 py-1.5 font-mono text-[14px] uppercase tracking-[0.25em] text-[#3B82F6] font-semibold shadow-xs backdrop-blur-xl">
+            <span className="h-2 w-2 rounded-full bg-[#3B82F6] shadow-[0_0_10px_#3B82F6]" />
             THE AI OPERATING LAYER
           </div>
         </Reveal>
 
-        <h2 className="mt-6 max-w-3xl text-[44px] font-extrabold leading-[1.08] tracking-[-0.03em] text-[#1A1A2E] sm:text-[60px] lg:text-[72px]">
+        <h2 className="mt-6 max-w-3xl text-[44px] font-extrabold leading-[1.08] tracking-[-0.038em] text-[#F8FAFC] sm:text-[60px] lg:text-[72px]">
           From manual friction to{" "}
-          <span className="bg-gradient-to-r from-[#7C3AED] via-[#8B5CF6] to-[#A855F7] bg-clip-text text-transparent">
+          <span className="bg-gradient-to-r from-[#3B82F6] via-[#2563EB] to-[#7C3AED] bg-clip-text text-transparent">
             intelligent flow
           </span>
           .
@@ -74,18 +77,18 @@ export function AutomationFlow() {
                     type="button"
                     onClick={() => setActive(i)}
                     className={cn(
-                      "flex h-full w-full flex-col items-start gap-4 p-6 text-left transition-all duration-500",
+                      "flex h-full w-full flex-col items-start gap-4 rounded-2xl border p-6 text-left transition-all duration-500 backdrop-blur-xl",
                       isActive
-                        ? "light-card-active"
-                        : "light-card hover:bg-white hover:border-[#7C3AED]/30"
+                        ? "border-blue-500/50 bg-[#121B2D] shadow-[0_0_30px_rgba(37,99,235,0.3)]"
+                        : "border-white/10 bg-white/[0.03] hover:border-white/20 hover:bg-white/[0.06]"
                     )}
                   >
                     <div
                       className={cn(
                         "flex h-11 w-11 items-center justify-center rounded-xl transition-all duration-500 border",
                         isActive
-                          ? "border-[#7C3AED]/50 bg-[#7C3AED]/10 text-[#7C3AED] shadow-[0_0_16px_rgba(124,58,237,0.2)]"
-                          : "border-black/[0.08] bg-[#F8F9FB] text-[#6B7280]"
+                          ? "border-blue-500/50 bg-blue-500/20 text-[#3B82F6] shadow-[0_0_16px_rgba(37,99,235,0.4)]"
+                          : "border-white/10 bg-white/[0.04] text-[#94A3B8]"
                       )}
                     >
                       <Icon
@@ -97,7 +100,7 @@ export function AutomationFlow() {
                       <span
                         className={cn(
                           "font-mono text-[10px] uppercase tracking-[0.2em] font-bold",
-                          isActive ? "text-[#7C3AED]" : "text-[#6B7280]"
+                          isActive ? "text-[#3B82F6]" : "text-[#94A3B8]"
                         )}
                       >
                         Step {String(i + 1).padStart(2, "0")}
@@ -105,7 +108,7 @@ export function AutomationFlow() {
                       <span
                         className={cn(
                           "text-sm font-bold leading-snug tracking-tight",
-                          isActive ? "text-[#1A1A2E]" : "text-[#4A4A6A]"
+                          isActive ? "text-[#F8FAFC]" : "text-[#CBD5E1]"
                         )}
                       >
                         {stage.label}
@@ -123,7 +126,7 @@ export function AutomationFlow() {
           {CAPABILITIES.map((cap) => (
             <span
               key={cap}
-              className="rounded-full border border-black/[0.08] bg-[#F8F9FB] px-4 py-2 text-xs font-semibold uppercase tracking-[0.08em] text-[#4A4A6A] shadow-sm transition-all duration-300 hover:border-[#7C3AED]/30 hover:text-[#1A1A2E]"
+              className="rounded-full border border-white/10 bg-white/[0.04] px-4 py-2 text-xs font-semibold uppercase tracking-[0.08em] text-[#CBD5E1] backdrop-blur-sm shadow-xs transition-all duration-300 hover:border-blue-500/40 hover:text-white"
             >
               {cap}
             </span>
