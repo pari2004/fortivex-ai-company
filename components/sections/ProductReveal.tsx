@@ -70,7 +70,7 @@ const PRODUCTS: Product[] = [
       "Access Control",
       "Analytics Dashboard",
     ],
-    href: "https://fams.empowersacademy.com/",
+    href: "https://famsw.empowersacademy.com/",
     cta: "Explore FAMS",
   },
 ];
