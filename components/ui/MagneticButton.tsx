@@ -48,7 +48,7 @@ export function MagneticButton({
   const base =
     "relative inline-flex items-center justify-center gap-2 rounded-full px-6 py-2.5 text-[12px] font-semibold uppercase tracking-[0.14em] transition-all duration-300 whitespace-nowrap cursor-pointer select-none";
 
-  const variants: Record<string, string> = {
+  const darkVariants: Record<string, string> = {
     primary:
       "bg-gradient-to-r from-[#2563EB] via-[#3B82F6] to-[#7C3AED] text-white hover:opacity-95 shadow-[0_4px_24px_rgba(37,99,235,0.4)] hover:shadow-[0_6px_32px_rgba(37,99,235,0.6)] active:scale-[0.98]",
     outline:
@@ -56,6 +56,17 @@ export function MagneticButton({
     ghost:
       "text-slate-300 hover:text-white hover:bg-white/5 active:scale-[0.98]",
   };
+
+  const lightVariants: Record<string, string> = {
+    primary:
+      "bg-gradient-to-r from-[#7C3AED] via-[#8B5CF6] to-[#6D28D9] text-white hover:opacity-95 shadow-[0_4px_24px_rgba(124,58,237,0.35)] hover:shadow-[0_6px_32px_rgba(124,58,237,0.5)] active:scale-[0.98]",
+    outline:
+      "border border-[#1A1A2E]/15 bg-white/60 text-[#1A1A2E] hover:border-[#7C3AED]/30 hover:bg-white/80 active:scale-[0.98] backdrop-blur-xl shadow-sm",
+    ghost:
+      "text-[#4A4A6A] hover:text-[#1A1A2E] hover:bg-black/5 active:scale-[0.98]",
+  };
+
+  const variants = tone === "light" ? lightVariants : darkVariants;
 
   const content = (
     <motion.div

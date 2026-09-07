@@ -15,26 +15,24 @@ export function HolographicAICore({ className }: { className?: string }) {
     let animationFrameId: number;
     let width = (canvas.width = canvas.offsetWidth * 2);
     let height = (canvas.height = canvas.offsetHeight * 2);
+    let minDim = Math.min(width, height);
 
     const handleResize = () => {
       if (!canvas) return;
       width = canvas.width = canvas.offsetWidth * 2;
       height = canvas.height = canvas.offsetHeight * 2;
+      minDim = Math.min(width, height);
     };
 
     window.addEventListener("resize", handleResize);
 
-    const centerX = width / 2;
-    const centerY = height / 2;
     const particleCount = 120;
     const particles: {
-      x: number;
-      y: number;
-      z: number;
+      ux: number;
+      uy: number;
+      uz: number;
+      radiusFactor: number;
       radius: number;
-      baseX: number;
-      baseY: number;
-      baseZ: number;
       color: string;
       speed: number;
     }[] = [];
@@ -44,20 +42,13 @@ export function HolographicAICore({ className }: { className?: string }) {
     for (let i = 0; i < particleCount; i++) {
       const theta = Math.random() * Math.PI * 2;
       const phi = Math.acos(Math.random() * 2 - 1);
-      const radius = 130 + Math.random() * 70;
-
-      const x = radius * Math.sin(phi) * Math.cos(theta);
-      const y = radius * Math.sin(phi) * Math.sin(theta);
-      const z = radius * Math.cos(phi);
 
       particles.push({
-        x,
-        y,
-        z,
+        ux: Math.sin(phi) * Math.cos(theta),
+        uy: Math.sin(phi) * Math.sin(theta),
+        uz: Math.cos(phi),
+        radiusFactor: 1 + Math.random() * 0.54,
         radius: 2 + Math.random() * 3,
-        baseX: x,
-        baseY: y,
-        baseZ: z,
         color: colors[Math.floor(Math.random() * colors.length)],
         speed: 0.005 + Math.random() * 0.008,
       });
@@ -69,14 +60,20 @@ export function HolographicAICore({ className }: { className?: string }) {
     const render = () => {
       ctx.clearRect(0, 0, width, height);
 
+      const centerX = width / 2;
+      const centerY = height / 2;
+      const sphereRadiusUnit = minDim * 0.144;
+      const glowRadius = minDim * 0.244;
+      const glowInner = minDim * 0.022;
+
       // Core Ambient Glowing Sphere
       const glowGrad = ctx.createRadialGradient(
         centerX,
         centerY,
-        20,
+        glowInner,
         centerX,
         centerY,
-        220
+        glowRadius
       );
       glowGrad.addColorStop(0, "rgba(37, 99, 235, 0.35)");
       glowGrad.addColorStop(0.4, "rgba(124, 58, 237, 0.2)");
@@ -84,7 +81,7 @@ export function HolographicAICore({ className }: { className?: string }) {
       glowGrad.addColorStop(1, "rgba(255, 255, 255, 0)");
 
       ctx.beginPath();
-      ctx.arc(centerX, centerY, 220, 0, Math.PI * 2);
+      ctx.arc(centerX, centerY, glowRadius, 0, Math.PI * 2);
       ctx.fillStyle = glowGrad;
       ctx.fill();
 
@@ -97,8 +94,8 @@ export function HolographicAICore({ className }: { className?: string }) {
 
       for (let r = 0; r < 3; r++) {
         ctx.beginPath();
-        const rx = 160 + r * 30;
-        const ry = 60 + r * 15;
+        const rx = minDim * (0.178 + r * 0.033);
+        const ry = minDim * (0.067 + r * 0.017);
         ctx.ellipse(
           centerX,
           centerY,
@@ -125,18 +122,23 @@ export function HolographicAICore({ className }: { className?: string }) {
         radius: number;
       }[] = [];
 
+      const fov = minDim * 0.389;
+
       for (let i = 0; i < particleCount; i++) {
         const p = particles[i];
+        const r = p.radiusFactor * sphereRadiusUnit;
+        const baseX = p.ux * r;
+        const baseY = p.uy * r;
+        const baseZ = p.uz * r;
 
         // Rotation along Y
-        let x1 = p.baseX * cosY - p.baseZ * sinY;
-        let z1 = p.baseZ * cosY + p.baseX * sinY;
+        let x1 = baseX * cosY - baseZ * sinY;
+        let z1 = baseZ * cosY + baseX * sinY;
 
         // Rotation along X
-        let y1 = p.baseY * cosX - z1 * sinX;
-        let z2 = z1 * cosX + p.baseY * sinX;
+        let y1 = baseY * cosX - z1 * sinX;
+        let z2 = z1 * cosX + baseY * sinX;
 
-        const fov = 350;
         const scale = fov / (fov + z2);
         const px = centerX + x1 * scale;
         const py = centerY + y1 * scale;
@@ -154,6 +156,7 @@ export function HolographicAICore({ className }: { className?: string }) {
       projected.sort((a, b) => a.scale - b.scale);
 
       // Draw Connection Threads between close particles
+      const linkDistance = minDim * 0.089;
       ctx.lineWidth = 0.8;
       for (let i = 0; i < projected.length; i++) {
         for (let j = i + 1; j < projected.length; j++) {
@@ -161,8 +164,8 @@ export function HolographicAICore({ className }: { className?: string }) {
           const dy = projected[i].py - projected[j].py;
           const dist = Math.sqrt(dx * dx + dy * dy);
 
-          if (dist < 80) {
-            const alpha = (1 - dist / 80) * 0.25 * projected[i].scale;
+          if (dist < linkDistance) {
+            const alpha = (1 - dist / linkDistance) * 0.25 * projected[i].scale;
             ctx.strokeStyle = `rgba(37, 99, 235, ${alpha})`;
             ctx.beginPath();
             ctx.moveTo(projected[i].px, projected[i].py);

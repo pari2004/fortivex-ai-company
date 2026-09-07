@@ -31,12 +31,12 @@ export function Logo({
         <span
           className={cn(
             "font-sans text-[17px] font-semibold tracking-tight sm:text-[19px]",
-            tone === "dark" ? "text-ink-50" : "text-ink-900"
+            tone === "dark" ? "text-ink-50" : "text-[#1A1A2E]"
           )}
         >
           FORTIVE
-          <span className="text-gradient-brand">X</span>
-          <span className="text-electric">.AI</span>
+          <span className={tone === "dark" ? "text-gradient-brand" : "text-gradient-purple"}>X</span>
+          <span className={tone === "dark" ? "text-electric" : "text-[#7C3AED]"}>.AI</span>
         </span>
       )}
     </Link>

@@ -1,9 +1,11 @@
 import { PremiumNavbar } from "@/components/sections/PremiumNavbar";
 import { HeroExperience } from "@/components/sections/HeroExperience";
+import { DashboardPreview } from "@/components/sections/DashboardPreview";
 import { Section01Opportunity } from "@/components/sections/Section01Opportunity";
 import { CapabilityExperience } from "@/components/sections/CapabilityExperience";
 import { AutomationFlow } from "@/components/sections/AutomationFlow";
 import { EcosystemMap } from "@/components/sections/EcosystemMap";
+import { ThemeTransition } from "@/components/sections/ThemeTransition";
 import { ProductReveal } from "@/components/sections/ProductReveal";
 import { ProcessJourney } from "@/components/sections/ProcessJourney";
 import { TechnologySystem } from "@/components/sections/TechnologySystem";
@@ -20,10 +22,12 @@ export default function Home() {
       <PremiumNavbar />
       <main>
         <HeroExperience />
+        <DashboardPreview />
         <Section01Opportunity />
         <CapabilityExperience />
         <AutomationFlow />
         <EcosystemMap />
+        <ThemeTransition />
         <ProductReveal />
         <ProcessJourney />
         <TechnologySystem />
